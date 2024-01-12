@@ -1,4 +1,4 @@
-﻿namespace RealityCourse.Frontend;
+﻿namespace RealtyCourse.Frontend;
 
 public class Startup
 {
@@ -7,7 +7,7 @@ public class Startup
 		services.AddMvc();
 	}
 
-	public void Configure (IApplicationBuilder app, IWebHostEnvironment env)
+	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 	{
 		if (env.IsDevelopment())
 		{
@@ -17,7 +17,7 @@ public class Startup
 		app.UseStaticFiles();
 		app.UseRouting();
 
-		app.UseEndpoints(endpoints => 
+		app.UseEndpoints(endpoints =>
 		{
 			endpoints.MapControllerRoute(
 				name: "default",

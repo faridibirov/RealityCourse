@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace RealityCourse.Frontend.Controllers
+namespace RealtyCourse.Frontend.Controllers
 {
 	public class HomeController : Controller
 	{
