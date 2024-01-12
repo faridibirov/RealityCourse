@@ -14,4 +14,9 @@
     <ProjectReference Include="..\RealtyCourse.Business\RealtyCourse.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="App\Containers\ApartmentIndex\" />
+    <Folder Include="App\Containers\AparmentRead\" />
+  </ItemGroup>
+
 </Project>
