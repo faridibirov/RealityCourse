@@ -1,12 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 import App from './Containers/app.jsx'
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
  
 import HouseReadReducer from './Containers/HouseRead/houseReadReducer.jsx';
-
 import HouseIndexReducer from './Containers/HouseIndex/houseIndexReducer.jsx';
+
 
 const rootReducer = combineReducers({
     HouseReadReducer,
@@ -14,7 +15,7 @@ const rootReducer = combineReducers({
 })
 
 function configureStore(initialStore) {
-    return createStore(rootReducer, initialStore);
+    return createStore(rootReducer, initialStore, applyMiddleware(thunk));
 }
 
 

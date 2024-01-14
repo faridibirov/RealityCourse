@@ -3,7 +3,7 @@
     GET_HOUSE_SUCCESS,
     GET_HOUSE_ERROR
 
-} from 'houseReadConstants.jsx'
+} from './houseReadConstants.jsx'
 
 const initialState = {
     houseInfo: {

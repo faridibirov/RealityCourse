@@ -1,9 +1,24 @@
-﻿namespace RealtyCourse.Frontend;
+﻿using Microsoft.EntityFrameworkCore;
+using RealtyCourse.DAL;
+using RealtyCourse.DAL.Repositories;
+
+namespace RealtyCourse.Frontend;
 
 public class Startup
 {
+	public IConfiguration Configuration { get; set; }
+
+	public Startup(IConfiguration configuration)
+	{
+		Configuration = configuration;
+	}
+
 	public void ConfigureServices(IServiceCollection services)
 	{
+		string connectionString = Configuration.GetConnectionString("DefaultConnection");
+
+		services.AddDbContext<RealtyContext>(options => options.UseSqlServer(connectionString));
+		services.AddScoped(typeof(EFGenericRepo<,>));
 		services.AddMvc();
 	}
 

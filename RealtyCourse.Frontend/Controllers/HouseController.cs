@@ -1,53 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealtyCourse.Business.Models;
+using RealtyCourse.DAL;
+using RealtyCourse.DAL.Repositories;
 namespace RealtyCourse.Frontend.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class HouseController : Controller
 {
+	private readonly EFGenericRepo<House, RealtyContext> _houseRepo;
+
+	public HouseController(EFGenericRepo<House, RealtyContext> houseRepo)
+	{
+		_houseRepo = houseRepo;
+	}
+
 	[Route("getall")]
 	[HttpGet]
 	public IActionResult GetAll()
 	{
-		House firstHouse = new House()
-		{
-			Id = 1,
-			CreationDateTime = DateTime.Now,
-			Address = "Unknown",
-			MaxFloor = 6,
-			BuildYear = 1968,
-			WallMaterial = "brick"
-		};
-		House secondHouse = new House()
-		{
-			Id = 2,
-			CreationDateTime = DateTime.Now.AddDays(-8),
-			Address = "Moscow, 19, Pushkin st.",
-			MaxFloor = 9,
-			BuildYear = 1985,
-			WallMaterial = "concrete panel"
-		};
 
-		List<House> houses = new List<House>() { firstHouse, secondHouse };
+		List<House> houses = _houseRepo.GetAllWithoutTracking().ToList();
 
 		return Json(houses);
 	}
 
 	[Route("get")]
 	[HttpGet]
-	public IActionResult GetSingle()
+	public IActionResult GetSingle(int? id)
 	{
-		House house = new House()
-		{
-			Id = 1,
-			CreationDateTime = DateTime.Now,
-			Address = "Unknown",
-			MaxFloor = 6,
-			BuildYear = 1968,
-			WallMaterial = "brick"
-		};
+		if (!id.HasValue)
+			return NotFound("Id not provided");
 
-		return Json(house);
+		House houseInfo = _houseRepo.GetWithoutTracking(x=>x.Id==id.Value);
+
+		return Json(new { houseInfo=houseInfo });
 	}
 }

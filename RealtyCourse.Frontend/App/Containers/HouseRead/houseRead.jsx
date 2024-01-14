@@ -1,10 +1,31 @@
 ﻿import React from 'react';
 import { render } from 'react-dom'
 import { connect } from 'react-redux';
+import {getHouse } from './houseReadActions.jsx'
 
- class HouseRead extends React.Component {
+class HouseRead extends React.Component {
+
+    componentDidMount() {
+        this.props.getHouse(1);
+    }
+    
      render() {
          let houseInfo = this.props.houseInfo;
+         let isLoading = this.props.isLoading;
+         let error = this.props.error;
+
+
+         if (isLoading) {
+             return (
+                 <div>Loading data...</div>
+             );
+         }
+
+         if (error) {
+             return (
+                 <div>Error in data loading: {error}</div>
+             );
+         }
 
         return (
             <div style={{ textAlign: "center", marginTop: "20px" }}>
@@ -29,8 +50,16 @@ import { connect } from 'react-redux';
 
 let mapStateToProps = (state) => {
     return {
-        houseInfo: state.HouseReadReducer.houseInfo
+        houseInfo: state.HouseReadReducer.houseInfo,
+        isLoading: state.HouseReadReducer.isLoading,
+        error: state.HouseReadReducer.error
     };
 };
 
-export default connect (mapStateToProps)(HouseRead)
+let mapActionsToProps = (dispatch) => {
+    return {
+        getHouse: (id) => dispatch(getHouse(id))
+    };
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(HouseRead)

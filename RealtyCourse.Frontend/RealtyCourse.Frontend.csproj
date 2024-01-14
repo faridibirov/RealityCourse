@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RealtyCourse.Business\RealtyCourse.Business.csproj" />
+    <ProjectReference Include="..\RealtyCourse.DAL\RealtyCourse.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
