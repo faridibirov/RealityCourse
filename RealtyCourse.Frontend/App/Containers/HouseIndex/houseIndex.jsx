@@ -1,37 +1,52 @@
 ﻿import React from 'react';
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { getHouses } from './houseIndexActions.jsx';
+import { Table, Spin } from 'antd';
+import { SearchOutlined } from "@ant-design/icons";
 class HouseIndex extends React.Component {
+
+    componentDidMount() {
+        const id = this.props.match.paramsid;
+        this.props.getHouses(id)
+    }
 
     render() {
         let housesInfo = this.props.housesInfo;
         let isLoading = this.props.isLoading;
 
-        if (isLoading) {
-            return (<div style={{ textAlign: "center", marginTop: "20px" }}>
-                Loading data...
-            </div>)
-        }
-
+        let columnsInfo = [
+            {
+                title: '#',
+                dataIndex: 'id',
+                key: 'id'
+            },
+            {
+                title: 'Creation date',
+                dataIndex: 'creationDateTime',
+                key: 'creationDate'
+            },
+            {
+                title: 'Address',
+                dataIndex: 'address',
+                key: 'address'
+            },
+            {
+                title: 'Action',
+                key: 'action',
+                render: (text, record) => (
+                    <Link to={"/house/read/" + record.id}><SearchOutlined/>View</Link>
+                )
+            }]
+           
         return (<div style={{ textAlign: "center", marginTop: "20px" }}>
             <h3>Houses list</h3>
-            <table style={{ width: "80%", marginLeft: "auto", marginRight: "auto", backgroundColor: "lightgray" }} >
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Creation date</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {housesInfo.map(house =>
-                    (<tr key={house.id}>
-                        <td>{house.id}</td>
-                        <td>{house.buildYear}</td>
-                        <td>{house.address}</td>
-                    </tr>))}
-                </tbody>
-            </table>
+            <Table
+                dataSource={housesInfo}
+                columns={columnsInfo}
+                loading={isLoading }
+            />
         </div>
         );
     }
@@ -41,8 +56,16 @@ class HouseIndex extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        housesInfo: state.HouseIndexReducer.housesInfo
+        housesInfo: state.HouseIndexReducer.housesInfo,
+        error: state.HouseIndexReducer.error,
+        isLoading: state.HouseIndexReducer.isLoading,
     };
 };
 
-export default connect(mapStateToProps)(HouseIndex)
+let mapActionsToProps = (dispatch) => {
+    return {
+        getHouses: () => dispatch(getHouses())
+    };
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(HouseIndex);

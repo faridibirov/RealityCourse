@@ -1,12 +1,30 @@
-﻿const initialState = {
-    housesInfo: [{
-        id: 1, address: 'Some address', buildYear: 1986, wallMaterial: 'brick', maxFloor: 9
-    },
-        {
-            id: 2, address: 'Other address', buildYear: 2005, wallMaterial: 'concrete', maxFloor: 25
-        }]
-}
+﻿import {
+    GET_HOUSES_LOADING_IN_PROGRESS,
+    GET_HOUSES_SUCCESS,
+    GET_HOUSES_ERROR,
+
+} from './houseIndexConstants.jsx';
+
+const initialState = {
+    housesInfo: [
+        { id: 1, address: null, buildYear: null, wallMaterial: null, maxFloor: null },
+    ],
+    error: null,
+    isLoading: false,
+};
 
 export default function houses(state = initialState, action) {
-    return state;
+    switch (action.type) {
+        case GET_HOUSES_LOADING_IN_PROGRESS:
+            return { ...state, isLoading: true };
+
+        case GET_HOUSES_SUCCESS:
+            return { ...state, housesInfo: action.housesInfo, error: '', isLoading: false };
+
+        case GET_HOUSES_ERROR:
+            return { ...state, error: action.error, isLoading: false };
+
+        default:
+            return state;
+    }
 }
