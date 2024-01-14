@@ -19,7 +19,7 @@ This is a mini web application for displaying real estate data. The backend is d
  
 The application stores data in a Microsoft SQL Server database. Ensure you have a SQL Server instance set up and update the connection string in the appsettings.json file in the backend directory.
 
-##Contribution
+## Contribution
 If you have any suggestions, improvements, or feedback, please open an issue or submit a pull request. Your contributions are highly appreciated!
 
 Feel free to explore each feature in detail by navigating to the respective directory. Each project folder contains its source code, documentation, and any additional resources.
