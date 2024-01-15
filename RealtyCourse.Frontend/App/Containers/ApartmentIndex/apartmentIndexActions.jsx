@@ -16,7 +16,8 @@ export function startReceivingApartments() {
 export function receiveApartments(data) {
     return {
         type: GET_APARTMENTS_SUCCESS,
-        housesInfo: data.apartmentsInfo
+        apartmentsInfo: data.apartmentsInfo,
+        totalCount:data.totalCount 
     };
 }
 
@@ -28,11 +29,15 @@ export function errorReceiveApartments(err) {
 }
 
 
-export function getApartments() {
-    return (dispatch) => {
-        dispatch(startReceivingApartments());
+export function getApartments(pagination) {
+    let targetPage = !pagination.current ? 1 : pagination.current;
+    let pageSize = !pagination.pageSize ? 10 : pagination.pageSize;
 
-        fetch(Href_ApartmentController_GetAll)
+    return (dispatch) => {
+        let queryTrailer = '?page=' + targetPage + '&pageSize=' + pageSize;
+
+        dispatch(startReceivingApartments());
+        fetch(Href_ApartmentController_GetAll + queryTrailer)
             .then((response) => {
                 var parsedJson = response.json();
                 return parsedJson;

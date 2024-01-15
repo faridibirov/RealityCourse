@@ -9,7 +9,8 @@ import { getApartment } from './apartmentReadActions.jsx'
 class ApartmentRead extends React.Component {
 
     componentDidMount() {
-        this.props.getApartment(1);
+        const id = this.props.match.params.id;
+        this.props.getApartment(id)
     }
 
     render() {
@@ -51,7 +52,7 @@ class ApartmentRead extends React.Component {
                     </Col>
                 </Row>
                 <div style={{ textAlign: "center", marginTop: "50px", fontWeight: "bold" }}>
-                    <Link to={"/house/index"}><RollbackOutlined />Back to apartments</Link>
+                    <Link to={"/apartment/index"}><RollbackOutlined />Back to apartments</Link>
                 </div>
             </div>
         );

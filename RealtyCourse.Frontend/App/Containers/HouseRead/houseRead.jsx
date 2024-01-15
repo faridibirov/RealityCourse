@@ -10,7 +10,8 @@ class HouseRead extends React.Component {
 
     componentDidMount() {
         const id = this.props.match.params.id;
-        this.props.getHouse(id)
+        document.title = "React Realty Course - House #" + id;
+        this.props.getHouse(id);
     }
 
     render() {

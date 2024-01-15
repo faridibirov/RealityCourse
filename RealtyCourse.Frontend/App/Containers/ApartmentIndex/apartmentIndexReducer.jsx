@@ -10,6 +10,7 @@ const initialState = {
     ],
     error: null,
     isLoading: false,
+    totalCount:0
 };
 
 export default function apartments(state = initialState, action) {
@@ -18,7 +19,7 @@ export default function apartments(state = initialState, action) {
             return { ...state, isLoading: true };
 
         case GET_APARTMENTS_SUCCESS:
-            return { ...state, housesInfo: action.housesInfo, error: '', isLoading: false };
+            return { ...state, apartmentsInfo: action.apartmentsInfo, error: '', isLoading: false, totalCount:action.totalCount };
 
         case GET_APARTMENTS_ERROR:
             return { ...state, error: action.error, isLoading: false };

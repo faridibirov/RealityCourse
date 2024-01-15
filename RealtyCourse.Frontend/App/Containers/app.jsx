@@ -21,7 +21,7 @@ export default class App extends React.Component {
                         <Content sytle={{margin:"0 16px"} }>
                     <Switch>
                         <Route path="/house/index" component={HouseIndex} />
-                        <Route path="/house/read/1" component={HouseRead} />
+                        <Route path="/house/read/:id" component={HouseRead} />
                         <Route path="/apartment/index" component={ApartmentIndex} />
                         <Route path="/apartment/read/:id" component={ApartmentRead} />
                     </Switch>

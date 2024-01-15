@@ -8,7 +8,7 @@
 
 import 'isomorphic-fetch';
 
-export function startReceiving() {
+export function startReceivingHouse() {
     return {
         type: GET_HOUSE_LOADING_IN_PROGRESS
     };
@@ -31,9 +31,10 @@ export function errorReceiveHouse(data) {
 
 export function getHouse(id) {
     return (dispatch) => {
-        dispatch(startReceiving());
+        let queryTrailer = '?id=' + id;
 
-        fetch(Href_HouseController_GetSingle + id)
+        dispatch(startReceivingHouse())
+        fetch(Href_HouseController_GetSingle + queryTrailer)
             .then((response) => {
                 var parsedJson = response.json();
                 return parsedJson;
@@ -44,5 +45,6 @@ export function getHouse(id) {
             .catch((ex) => {
                 dispatch(errorReceiveHouse(ex));
             })
-    }       
+    }
 }
+

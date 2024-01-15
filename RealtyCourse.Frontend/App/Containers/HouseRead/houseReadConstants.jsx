@@ -2,4 +2,4 @@
 export const GET_HOUSE_SUCCESS = 'GET_HOUSE_SUCCESS';
 export const GET_HOUSE_ERROR = 'GET_HOUSE_ERROR';
 
-export const Href_HouseController_GetSingle = '/api/house/get?id=';
+export const Href_HouseController_GetSingle = '/api/house/get';

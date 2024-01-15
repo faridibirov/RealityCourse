@@ -17,12 +17,21 @@ public class HouseController : Controller
 
 	[Route("getall")]
 	[HttpGet]
-	public IActionResult GetAll()
+	public IActionResult GetAll(int? page, int? pageSize)
 	{
+		int targetPage = page.GetValueOrDefault(1);
+		int targetPageSize = pageSize.GetValueOrDefault(10);
 
-		List<House> houses = _houseRepo.GetAllWithoutTracking().ToList();
+		IQueryable<House> allEntities = _houseRepo.GetAllWithoutTracking();
+		
+		int totalCount = allEntities.Count();	
 
-		return Json(houses);
+		List<House> housesInfo = allEntities
+			.Skip((targetPage - 1) * targetPageSize)
+			.Take(targetPageSize)
+			.ToList();
+
+		return Json(new {housesInfo, totalCount});
 	}
 
 	[Route("get")]

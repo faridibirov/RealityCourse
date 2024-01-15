@@ -17,7 +17,8 @@ export function startReceivingHouses() {
 export function receiveHouses(data) {
     return {
         type: GET_HOUSES_SUCCESS,
-        housesInfo: data.housesInfo
+        housesInfo: data.housesInfo,
+        totalCount: data.totalCount
     };
 }
 
@@ -29,11 +30,15 @@ export function errorReceiveHouses(err) {
 }
 
 
-export function getHouses() {
+export function getHouses(pagination) {
+    let targetPage = !pagination.current ? 1 : pagination.current;
+    let pageSize = !pagination.pageSize ? 10 : pagination.pageSize;
+
     return (dispatch) => {
+        let queryTrailer = '?page=' + targetPage + '&pageSize=' + pageSize;
         dispatch(startReceivingHouses());
 
-        fetch(Href_HouseController_GetAll)
+        fetch(Href_HouseController_GetAll + queryTrailer)
             .then((response) => {
                 var parsedJson = response.json();
                 return parsedJson;
